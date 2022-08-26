@@ -34,6 +34,35 @@ M = 500;                        % Please decide a reasonable number of M,
 % Create M number of particles
 P = repmat(myPose(:,1), [1, M]);
 
+hFig = figure(1);
+set( hFig,'Name','Particles','NumberTitle','off');
+imagesc(map);
+hold on;
+axis equal;
+particles = scatter(P(1,:)*myResol+myOrigin(1),P(2,:)*myResol+myOrigin(2), 20, 'MarkerEdgeColor',[0 0 0],...
+              'MarkerFaceColor',[0 1 1],...
+              'LineWidth',1.5);
+          
+figure('Name','Path and Lidar data','NumberTitle','off');       
+imagesc(map);
+hold on;
+axis equal;
+lidar_global(:,1) =  (ranges(:,1).*cos(scanAngles + myPose(3,1)) + myPose(1,1))*myResol + myOrigin(1);
+lidar_global(:,2) = (-ranges(:,1).*sin(scanAngles + myPose(3,1)) + myPose(2,1))*myResol + myOrigin(2);
+lidarPlot = plot(lidar_global(:,1), lidar_global(:,2), 'g.'); 
+current_pos = plot(myPose(1,1)*param.resol+param.origin(1), ...
+    myPose(2,1)*param.resol+param.origin(2), 'k-');
+
+figure('Name','Result','NumberTitle','off');
+grid;
+hold on;
+xlabel('X'); 
+ylabel('Y'); 
+actual_plt = plot(pose(1,1),pose(2,1),'k-.', 'LineWidth', 2.5);
+estimate_plt= plot(myPose(1,1),myPose(2,1),'b-', 'LineWidth', 1.5);
+legend('Grount Truth', 'Estimate' );
+pause;
+
   
 
 for j = 2:N % You will start estimating myPose from j=2 using ranges(:,2).
