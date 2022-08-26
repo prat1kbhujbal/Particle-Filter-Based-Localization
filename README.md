@@ -9,7 +9,7 @@ Implementation of Particle filter for pose tracking in 2D space.
 ## Results
 ### Demostration
 <p align="center">
-<img src="results/demo.gif" width="1000"/>
+<img src="results/demo.gif" width="800"/>
 </p>
 
 ### Estimate vs GT
