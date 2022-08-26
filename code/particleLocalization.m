@@ -111,6 +111,30 @@ for j = 2:N % You will start estimating myPose from j=2 using ranges(:,2).
     end
     
     % 4) Visualize the pose on the map as needed
+    particles.XData = P(1,:)*myResol+myOrigin(1);
+    particles.YData = P(2,:)*myResol+myOrigin(2);
+    
+    lidarPlot.XData = (ranges(:,j).*cos(scanAngles + myPose(3,j)) + myPose(1,j))*myResol + myOrigin(1);
+    lidarPlot.YData = (-ranges(:,j).*sin(scanAngles + myPose(3,j)) + myPose(2,j))*myResol + myOrigin(2);
+    
+    actual_plt.XData= [actual_plt.XData pose(1,j)];
+    actual_plt.YData= [actual_plt.YData -pose(2,j)];
+
+    estimate_plt.XData= [estimate_plt.XData myPose(1,j)];
+    estimate_plt.YData= [estimate_plt.YData -myPose(2,j)];
+    
+
+    windowsize_x = myPose(1,j)*param.resol+param.origin(1);
+    windowsize_y = myPose(2,j)*param.resol+param.origin(2);
+
+    current_pos.XData = [current_pos.XData windowsize_x];
+    current_pos.YData = [current_pos.YData windowsize_y];
+
+    figure(1)
+    xlim([windowsize_x-30 windowsize_x+30])
+    ylim([windowsize_y-30 windowsize_y+30])
+
+    drawnow;
 
 
 end
