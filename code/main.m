@@ -19,7 +19,7 @@ load ../data_files/practice.mat
 %     angles are with respect to the body coordinate frame.
 % [4] M is a 2D array containing the occupancy grid map of the location
 %     e.g. map(x,y) is a log odds ratio of occupancy probability at (x,y)
-load ../data_files/practice-answer.mat;
+load practice-answer.mat;
 %% Set parameters
 param = {};
 % 1. Decide map resolution, i.e., the number of grids for 1 meter.

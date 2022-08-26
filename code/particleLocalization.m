@@ -51,7 +51,7 @@ lidar_global(:,1) =  (ranges(:,1).*cos(scanAngles + myPose(3,1)) + myPose(1,1))*
 lidar_global(:,2) = (-ranges(:,1).*sin(scanAngles + myPose(3,1)) + myPose(2,1))*myResol + myOrigin(2);
 lidarPlot = plot(lidar_global(:,1), lidar_global(:,2), 'g.'); 
 current_pos = plot(myPose(1,1)*param.resol+param.origin(1), ...
-    myPose(2,1)*param.resol+param.origin(2), 'k-');
+    myPose(2,1)*param.resol+param.origin(2), 'k-','LineWidth',1.5);
 
 figure('Name','Result','NumberTitle','off');
 grid;
@@ -131,8 +131,8 @@ for j = 2:N % You will start estimating myPose from j=2 using ranges(:,2).
     current_pos.YData = [current_pos.YData windowsize_y];
 
     figure(1)
-    xlim([windowsize_x-30 windowsize_x+30])
-    ylim([windowsize_y-30 windowsize_y+30])
+    xlim([windowsize_x-50 windowsize_x+50])
+    ylim([windowsize_y-50 windowsize_y+50])
 
     drawnow;
 
