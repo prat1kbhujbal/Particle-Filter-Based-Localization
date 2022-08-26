@@ -15,3 +15,7 @@ Implementation of Particle filter for pose tracking in 2D space.
 <p align="middle">
   <img src="./results/gtvsest.png" />
 </p>
+
+## Refrences
+> https://myenigma.hatenablog.com/entry/20140628/1403956852  
+> [Probabilistic Robotics](http://www.probabilistic-robotics.org/)
