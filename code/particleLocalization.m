@@ -72,9 +72,29 @@ for j = 2:N % You will start estimating myPose from j=2 using ranges(:,2).
     P = diag(myPose(:,j-1))*ones(3,M) +  mvnrnd([0;0;0],smt,M)';
     
     % 2) Measurement Update 
-   
+    for k = 1:M
+    %   2-1) Find grid cells hit by the rays (in the grid map coordinate
+    %   frame)
+        range = ceil(1.0*size(ranges,1));
+        index = 1:range;
+        xocp = ranges(index,j).*cos(P(3,k)+scanAngles(index)) + P(1,k);
+        yocp = -ranges(index,j).*sin(P(3,k)+scanAngles(index)) + P(2,k);
+        ocp = ceil([xocp';yocp']*myResol) + myOrigin*ones(1,range);
+        remocp =  ocp(1,:)<1 | ocp(2,:)<1 |  ocp(1,:) > size(map,2) |  ocp(2,:) > size(map,1);
+        ocp(:,remocp) = [];
+        
+    %   2-2) For each particle, calculate the correlation scores of the particles
+        ocpindx = sub2ind(size(map),ocp(2,:),ocp(1,:));
+        ocpv = map(ocpindx);
+        corln(1,k) = sum(ocpv(ocpv>=0.5)*10) + sum(ocpv(ocpv<=-0.2)*2);% + sum(free_values(free_values<0)*-3) + sum(free_values(free_values>0)*-5);% - sum(sumnum)*0.05;
+    end
     %   2-3) Update the particle weights  
-  
+    corln(corln<0)= 0;
+    weights = corln;
+    weights = weights./sum(weights);
+    if sum(weights<0)>0
+        pause
+    end
  
     %   2-4) Choose the best particle to update the pose
   
