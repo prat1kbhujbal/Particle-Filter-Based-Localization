@@ -97,10 +97,18 @@ for j = 2:N % You will start estimating myPose from j=2 using ranges(:,2).
     end
  
     %   2-4) Choose the best particle to update the pose
-  
+    [~,ind]=max(weights);
+    myPose(:,j) = P(:,ind);
     
     % 3) Resample if the effective number of particles is smaller than a threshold
-
+    peff = 1/sum(weights.*weights);
+    if peff < 0.1*M
+      edgs = min([0 cumsum(weights)],1);
+      edgs(end) = 1;
+      u1 = rand/M;
+      [~, index] = histcounts(u1:1/M:1,edgs);
+      P = P(:,index);                   
+    end
     
     % 4) Visualize the pose on the map as needed
 
