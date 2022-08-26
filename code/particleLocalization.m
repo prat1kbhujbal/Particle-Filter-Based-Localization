@@ -63,12 +63,13 @@ estimate_plt= plot(myPose(1,1),myPose(2,1),'b-', 'LineWidth', 1.5);
 legend('Grount Truth', 'Estimate' );
 pause;
 
-  
+corln = zeros(1,M);
+smt = diag([0.0015,0.0015,0.0005]);    
 
 for j = 2:N % You will start estimating myPose from j=2 using ranges(:,2).
     
     % 1) Propagate the particles 
-   
+    P = diag(myPose(:,j-1))*ones(3,M) +  mvnrnd([0;0;0],smt,M)';
     
     % 2) Measurement Update 
    
