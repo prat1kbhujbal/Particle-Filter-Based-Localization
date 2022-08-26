@@ -1,4 +1,4 @@
-# Particle-Filter-Based-Localization
+# Particle Filter based Localization
 ## Overview
 Implementation of Particle filter for pose tracking in 2D space.
 
@@ -6,7 +6,7 @@ Implementation of Particle filter for pose tracking in 2D space.
 [PDF link](week4.pdf)
 
 ## Results
-### Demostration
+### Demonstration
 <p align="center">
 <img src="results/demo.gif" width="800"/>
 </p>
